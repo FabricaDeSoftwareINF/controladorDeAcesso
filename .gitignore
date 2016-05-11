@@ -1,3 +1,6 @@
 /controleAcessoData/
 /target/
 *~
+/nbproject/
+/controleAcessoTeste/
+derby.log

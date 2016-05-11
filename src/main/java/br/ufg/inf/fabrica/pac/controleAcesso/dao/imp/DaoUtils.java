@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.ufg.inf.fabrica.pac.seguranca.dao.imp;
+package br.ufg.inf.fabrica.pac.controleAcesso.dao.imp;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -14,12 +14,8 @@ import java.sql.SQLException;
  */
 public class DaoUtils {
     private final Connection conexao;
-    private static final String SQL_CRIA_TABELAS = "CREATE TABLE recurso(nome VARCHAR(255) PRIMARY KEY, descricao VARCHAR(255));"
-                + " CREATE TABLE contexto(nome VARCHAR(255) PRIMARY KEY, descricao VARCHAR(255));"
-                + " CREATE TABLE papel(nome VARCHAR(255) PRIMARY KEY, descricao VARCHAR(255));"
-                + " CREATE TABLE permissao(nome_contexto VARCHAR(255) REFERENCES contexto(nome),"
-                    + " nome_recurso VARCHAR(255) REFERENCES recurso(nome), nome_papel VARCHAR(255) REFERENCES papel(nome),"
-                    + " PRIMARY KEY(nome_contexto, nome_recurso, nome_papel));";
+    private static final String SQL_CRIA_TABELAS = "CREATE TABLE permissao(id INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+                    + " nome_contexto VARCHAR(255), nome_recurso VARCHAR(255), nome_papel VARCHAR(255), UNIQUE (nome_contexto, nome_recurso, nome_papel));";
                 
     
     private static final String SQL_DROP_TABELAS = "DROP TABLE permissao;"
@@ -28,8 +24,8 @@ public class DaoUtils {
             + " DROP TABLE recurso;"
             + " DROP TABLE papel_recurso; DROP TABLE papel;";
     
-    public DaoUtils() throws SQLException {
-        Conexao conexaoCriador = new Conexao();
+    public DaoUtils(Conexao conexaoCriador) throws SQLException {
+        //Conexao conexaoCriador = new Conexao();
         conexao = conexaoCriador.getConexao();
     }
     
@@ -56,10 +52,9 @@ public class DaoUtils {
     
     
     public static void main(String[] args) throws SQLException {
-        DaoUtils du  = new DaoUtils();
+        Conexao conexao = new Conexao();
+        DaoUtils du  = new DaoUtils(conexao);
         du.limpaBanco();
-        //du.limpaBanco();
-        //du.limpaBanco();
         du.criaTabelas();
     }
     

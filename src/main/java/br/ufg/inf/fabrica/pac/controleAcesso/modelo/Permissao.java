@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.ufg.inf.fabrica.pac.seguranca.modelo;
+package br.ufg.inf.fabrica.pac.controleAcesso.modelo;
 
 import java.util.Objects;
 
@@ -12,43 +12,50 @@ import java.util.Objects;
  * @author murilo
  */
 public class Permissao {
-    private Contexto contexto;
-    private Recurso recurso;
-    private Papel papel;
+    private String contexto;
+    private String recurso;
+    private String papel;
+    private int id;
 
-    public Permissao(Contexto contexto, Recurso recurso, Papel papel) {
+    public Permissao(String contexto, String recurso, String papel) {
         this.contexto = contexto;
         this.recurso = recurso;
         this.papel = papel;
     }
 
-    public void setContexto(Contexto contexto) {
+    public void setContexto(String contexto) {
         this.contexto = contexto;
     }
 
-    public void setRecurso(Recurso recurso) {
+    public void setRecurso(String recurso) {
         this.recurso = recurso;
     }
 
 
-    public Contexto getContexto() {
+    public String getContexto() {
         return contexto;
     }
 
-    public Recurso getRecurso() {
+    public String getRecurso() {
         return recurso;
     }
 
-    public void setPapel(Papel papel) {
+    public void setPapel(String papel) {
         this.papel = papel;
     }
 
-    public Papel getPapel() {
+    public String getPapel() {
         return papel;
     }
-    
-   
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 3;
@@ -80,6 +87,11 @@ public class Permissao {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "("+ contexto + ", " + recurso + ", " + papel +")";
     }
     
 }
